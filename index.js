@@ -6,7 +6,13 @@ function autoResize(textarea) {
 function generate() {
     const input = document.getElementById("input");
     const code = document.getElementById("code");
-    code.value = input.value.split("\n").map(line => `std::cout << "${line}" << std::endl;`).join("\n");
+    code.value = input.value
+        .replace(/\\/g, "\\\\")
+        .replace(/"/g, "\\\"")
+        .split("\n")
+        .map(line => `std::cout << "${line}" << std::endl;`)
+        .join("\n");
+
     autoResize(input);
     autoResize(code);
 }
